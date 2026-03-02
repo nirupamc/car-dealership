@@ -1,0 +1,108 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// NextAuth / Auth.js standard models
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// Application specific models
+model Car {
+  id            String   @id @default(cuid())
+  brand         String
+  model         String
+  year          Int
+  price         Float
+  km            Int
+  transmission  String
+  engine        String
+  bhp           Int
+  torque        Int
+  zeroTo100     Float    // 0-100 km/h
+  description   String?  // optional short description
+  imageUrls     String   // SQLite doesn't support String[], storing as JSON string
+  status        String   @default("AVAILABLE") // AVAILABLE, RESERVED, SOLD
+  daysOnLot     Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  TestDriveBookings TestDriveBooking[]
+}
+
+model Lead {
+  id          String   @id @default(cuid())
+  make        String
+  model       String
+  year        Int
+  contactName String
+  email       String
+  phone       String
+  photos      String?  // JSON string of photo URLs 
+  status      String   @default("NEW") // NEW, CONTACTED, CLOSED
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model TestDriveBooking {
+  id          String   @id @default(cuid())
+  carId       String
+  name        String
+  email       String
+  phone       String
+  date        DateTime
+  status      String   @default("PENDING") // PENDING, CONFIRMED, COMPLETED
+  createdAt   DateTime @default(now())
+  
+  car         Car      @relation(fields: [carId], references: [id], onDelete: Cascade)
+}
