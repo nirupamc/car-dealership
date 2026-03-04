@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, MessageCircle, Calendar, ShieldCheck, Gauge, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { TestDriveModal } from "@/components/cars/TestDriveModal";
 
 export default function VehicleDetail() {
     const { id } = useParams();
@@ -35,7 +36,7 @@ export default function VehicleDetail() {
     if (!car) return <div className="min-h-screen pt-32 pb-24 flex items-center justify-center text-white">Vehicle not found.</div>;
 
     const handleWhatsApp = () => {
-        const message = `Hello Apex Velocity, I'm interested in the ${car.year} ${car.brand} ${car.model} mapped under ID #${car.id}.`;
+        const message = `Hello Titan Motors, I'm interested in the ${car.year} ${car.brand} ${car.model} mapped under ID #${car.id}.`;
         window.open(`https://wa.me/18001234567?text=${encodeURIComponent(message)}`, "_blank");
     };
 
@@ -124,12 +125,14 @@ export default function VehicleDetail() {
 
                             {/* Primary CTAs */}
                             <div className="flex flex-col gap-4">
-                                <Button
-                                    className="w-full h-14 bg-primary text-black hover:bg-primary/90 text-lg font-bold glow-hover rounded-none flex items-center justify-center gap-3"
-                                    disabled={car.status === "SOLD"}
-                                >
-                                    <Calendar className="w-5 h-5" /> BOOK TEST DRIVE
-                                </Button>
+                                <TestDriveModal carId={car.id} carName={`${car.year} ${car.brand} ${car.model}`}>
+                                    <Button
+                                        className="w-full h-14 bg-primary text-black hover:bg-primary/90 text-lg font-bold glow-hover rounded-none flex items-center justify-center gap-3"
+                                        disabled={car.status === "SOLD"}
+                                    >
+                                        <Calendar className="w-5 h-5" /> BOOK TEST DRIVE
+                                    </Button>
+                                </TestDriveModal>
                                 <Button
                                     variant="outline"
                                     onClick={handleWhatsApp}
@@ -183,9 +186,11 @@ export default function VehicleDetail() {
                     <Button size="icon" onClick={handleWhatsApp} className="bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full">
                         <MessageCircle className="w-5 h-5" />
                     </Button>
-                    <Button className="bg-primary text-black hover:bg-primary/90 rounded-none font-bold px-6">
-                        RESERVE NOW
-                    </Button>
+                    <TestDriveModal carId={car.id} carName={`${car.year} ${car.brand} ${car.model}`}>
+                        <Button className="bg-primary text-black hover:bg-primary/90 rounded-none font-bold px-6">
+                            RESERVE NOW
+                        </Button>
+                    </TestDriveModal>
                 </div>
             </div>
         </div>

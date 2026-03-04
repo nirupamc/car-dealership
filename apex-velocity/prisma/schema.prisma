@@ -95,14 +95,18 @@ model Lead {
 }
 
 model TestDriveBooking {
-  id          String   @id @default(cuid())
-  carId       String
-  name        String
-  email       String
-  phone       String
-  date        DateTime
-  status      String   @default("PENDING") // PENDING, CONFIRMED, COMPLETED
-  createdAt   DateTime @default(now())
-  
-  car         Car      @relation(fields: [carId], references: [id], onDelete: Cascade)
+  id            Int      @id @default(autoincrement())
+  carId         String
+  car           Car      @relation(fields: [carId], references: [id], onDelete: Cascade)
+
+  name          String
+  email         String
+  phone         String?
+
+  preferredDate DateTime
+  status        String   @default("Pending")  // Pending / Confirmed / Cancelled / Completed
+  notes         String?
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }

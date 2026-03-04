@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 
 export default function Footer() {
@@ -9,12 +10,16 @@ export default function Footer() {
 
                     {/* Brand Col */}
                     <div className="md:col-span-1">
-                        <Link href="/" className="flex items-center gap-2 mb-6">
-                            <div className="w-8 h-8 rounded bg-primary text-black flex items-center justify-center font-bold text-xl">
-                                AV
-                            </div>
+                        <Link href="/" className="flex items-center gap-3 mb-6">
+                            <Image
+                                src="/titan-logo.png"
+                                alt="Titan Motors Logo"
+                                width={40}
+                                height={40}
+                                className="object-contain brightness-0 invert"
+                            />
                             <span className="font-heading text-xl font-bold tracking-wider text-white">
-                                <span className="text-primary">APEX</span> VELOCITY
+                                <span className="text-primary">TITAN</span> MOTORS
                             </span>
                         </Link>
                         <p className="text-muted-foreground text-sm leading-relaxed max-w-sm mb-6">
@@ -64,12 +69,12 @@ export default function Footer() {
                         <ul className="space-y-4">
                             <li className="text-muted-foreground text-sm">
                                 <span className="block text-white font-medium mb-1">Location</span>
-                                120 Apex Boulevard,<br />Velocity Tech Park, NV 89000
+                                Hyderabad, Telangana,<br />India
                             </li>
                             <li className="text-muted-foreground text-sm mt-4">
                                 <span className="block text-white font-medium mb-1">Contact</span>
-                                +1 (800) VELOCITY<br />
-                                concierge@apexvelocity.com
+                                +91 (800) TITAN<br />
+                                concierge@titanmotors.in
                             </li>
                         </ul>
                     </div>
@@ -78,7 +83,7 @@ export default function Footer() {
 
                 <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
                     <p className="text-muted-foreground text-sm">
-                        © {new Date().getFullYear()} Apex Velocity. All Rights Reserved.
+                        © {new Date().getFullYear()} Titan Motors. All Rights Reserved.
                     </p>
                     <div className="flex gap-6">
                         <Link href="#" className="text-muted-foreground hover:text-white text-sm transition-colors">Privacy Policy</Link>

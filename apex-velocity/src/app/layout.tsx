@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import AuthProvider from "@/components/auth/AuthProvider";
+import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -16,7 +17,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Apex Velocity | Exquisite Supercars",
+  title: "Titan Motors | Exquisite Supercars",
   description: "The Art of Pre-Owned Excellence",
 };
 
@@ -31,11 +32,13 @@ export default function RootLayout({
         className={`${inter.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground min-h-screen flex flex-col`}
       >
         <AuthProvider>
-          <Navbar />
-          <main className="flex-1 flex flex-col">
-            {children}
-          </main>
-          <Footer />
+          <SmoothScrollProvider>
+            <Navbar />
+            <main className="flex-1 flex flex-col">
+              {children}
+            </main>
+            <Footer />
+          </SmoothScrollProvider>
         </AuthProvider>
       </body>
     </html>

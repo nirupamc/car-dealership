@@ -98,7 +98,7 @@ export default function AdminLogin() {
                     </Button>
 
                     <p className="text-center text-xs text-gray-600 mt-8">
-                        Session activity is monitored and logged in compliance with Apex Velocity strict security protocol.
+                        Session activity is monitored and logged in compliance with Titan Motors strict security protocol.
                     </p>
                 </form>
             </div>
